@@ -190,4 +190,50 @@
     if (e.target.closest("[data-mm-close]") && e.target.closest(".mm-modal")) close();
   });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+
+  /* Buy: add product to cart (AJAX) then swap the button to "View cart" + "Checkout". */
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-mm-add-to-cart]");
+    if (!btn) return;
+    e.preventDefault();
+    var pid = btn.getAttribute("data-mm-add-to-cart");
+    var checkoutUrl = btn.getAttribute("data-mm-checkout-url");
+    var cartUrl = btn.getAttribute("data-mm-cart-url");
+    if (!pid || btn.classList.contains("is-busy")) return;
+    btn.classList.add("is-busy");
+    var label = btn.textContent;
+    btn.textContent = "Adding\u2026";
+    var endpoint = window.location.origin + window.location.pathname + "?wc-ajax=add_to_cart";
+    var body = new URLSearchParams();
+    body.set("product_id", pid);
+    body.set("quantity", "1");
+    fetch(endpoint, { method: "POST", credentials: "same-origin", body: body })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.fragments) {
+          btn.classList.remove("is-busy");
+          var isBlock = btn.classList.contains("mm-btn-block");
+          var view = document.createElement("a");
+          view.className = btn.className;
+          if (btn.getAttribute("style")) view.setAttribute("style", btn.getAttribute("style"));
+          view.href = cartUrl;
+          view.textContent = "View cart";
+          view.setAttribute("data-testid", btn.getAttribute("data-testid"));
+          var checkout = document.createElement("a");
+          checkout.className = "mm-btn mm-btn-outline " + (isBlock ? "mm-btn-block " : "mm-btn-sm ") + "mm-view-cart";
+          checkout.href = checkoutUrl;
+          checkout.textContent = "Checkout";
+          checkout.setAttribute("data-testid", "view-cart");
+          btn.parentNode.replaceChild(view, btn);
+          view.parentNode.insertBefore(checkout, view.nextSibling);
+        } else {
+          btn.classList.remove("is-busy");
+          btn.textContent = label;
+        }
+      })
+      .catch(function () {
+        btn.classList.remove("is-busy");
+        btn.textContent = label;
+      });
+  });
 })();

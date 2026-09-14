@@ -109,13 +109,35 @@ function mm_product_data(): array {
 		'badge'    => mm_field( 'hero_badge', $d['badge'] ),
 		'desc'     => mm_field( 'hero_desc', $d['desc'] ),
 		'buy_url'  => mm_buy_url( $key, $d['buy'] ),
-		'buy_l'    => mm_field( 'buy_label', mm_wc_product_id( $key ) ? 'Buy now — ' . wp_strip_all_tags( mm_price( $key, (int) $d['plans'][1]['price'] ) ) : $d['buy_l'] ),
+		'buy_l'    => mm_field( 'buy_label', mm_wc_product_id( $key ) ? 'Add to cart' : $d['buy_l'] ),
 		'hero_img' => mm_field( 'hero_image', '' ),
 		'features' => $features ? array_map( fn( $r ) => [ $r['title'], $r['desc'] ], $features ) : $d['features'],
 		'steps'    => $steps ? array_map( fn( $r ) => [ $r['title'], $r['desc'] ], $steps ) : $d['steps'],
 		'plans'    => $plans ? array_map( fn( $r ) => [ 'label' => $r['label'], 'price' => (int) $r['price'], 'tagline' => $r['tagline'], 'popular' => (int) $r['popular'], 'features' => $r['features'] ], $plans ) : $d['plans'],
 		'faqs'     => $faqs ? array_map( fn( $r ) => [ 'q' => $r['q'], 'a' => $r['a'] ], $faqs ) : $d['faqs'],
 	];
+}
+
+/**
+ * Buy button URL/attributes: when a WooCommerce product exists the button adds
+ * it to the cart (fallback links straight to checkout?add-to-cart), otherwise it
+ * opens the marketplace page. An SCF "Marketplace URL" override always wins.
+ */
+function mm_buy_attrs( array $p ): string {
+	$pid = mm_wc_product_id( $p['key'] );
+	if ( $pid ) {
+		$checkout  = wc_get_checkout_url();
+		$cart      = wc_get_cart_url();
+		$add_to_cart = add_query_arg( 'add-to-cart', $pid, wc_get_cart_url() );
+		return sprintf(
+			'data-mm-add-to-cart="%d" data-mm-checkout-url="%s" data-mm-cart-url="%s" href="%s"',
+			(int) $pid,
+			esc_url( $checkout ),
+			esc_url( $cart ),
+			esc_url( $add_to_cart )
+		);
+	}
+	return 'href="' . esc_url( $p['buy_url'] ) . '" target="_blank" rel="noreferrer"';
 }
 
 function mm_block_product_hero(): string {
@@ -130,7 +152,7 @@ function mm_block_product_hero(): string {
 				<h1 class="mm-display mm-left">Metamint <span style="color:var(--mm-accent)"><?php echo esc_html( $p['d']['hl'] ); ?></span></h1>
 				<p class="mm-lede mm-left"><?php echo esc_html( $p['desc'] ); ?></p>
 				<div class="mm-btnrow mm-left">
-					<a class="mm-btn" style="background:var(--mm-accent);color:#fff" href="<?php echo esc_url( $p['buy_url'] ); ?>" <?php echo str_contains( $p['buy_url'], 'add-to-cart' ) ? '' : 'target="_blank" rel="noreferrer"'; ?> data-testid="buy-<?php echo esc_attr( $p['key'] ); ?>-button"><?php echo esc_html( $p['buy_l'] ); ?></a>
+					<a class="mm-btn" style="background:var(--mm-accent);color:#fff" <?php echo mm_buy_attrs( $p ); // phpcs:ignore ?> data-testid="buy-<?php echo esc_attr( $p['key'] ); ?>-button"><?php echo esc_html( $p['buy_l'] ); ?></a>
 					<button class="mm-btn mm-btn-outline" data-mm-checkout data-mm-product="<?php echo esc_attr( $p['key'] ); ?>" data-testid="mock-checkout-<?php echo esc_attr( $p['key'] ); ?>-button" type="button">Demo checkout</button>
 				</div>
 			</div>
@@ -236,17 +258,28 @@ function mm_block_product_pricing(): string {
 		<p class="mm-lede">No monthly drip. No per-seat surprises. Cancel anytime, keep the plugin forever.</p>
 		<div class="mm-grid-3">
 			<?php foreach ( $p['plans'] as $i => $plan ) : ?>
+				<?php $pair = ( 0 === $i ) ? mm_price_pair( $p['key'], (int) $plan['price'] ) : null; ?>
 				<div class="mm-card mm-plan <?php echo $plan['popular'] ? 'mm-plan-popular' : ''; ?>" data-testid="pricing-plan-<?php echo esc_attr( $p['key'] ); ?>-<?php echo (int) $i; ?>" <?php echo $plan['popular'] ? 'style="border-color:var(--mm-accent)"' : ''; ?>>
 					<?php if ( $plan['popular'] ) : ?><span class="mm-plan-flag" style="background:var(--mm-accent)">Most popular</span><?php endif; ?>
 					<h3 class="mm-h4"><?php echo esc_html( $plan['label'] ); ?></h3>
 					<p class="mm-muted mm-sm"><?php echo esc_html( $plan['tagline'] ); ?></p>
-					<p class="mm-price">$<?php echo (int) $plan['price']; ?><span> / year</span></p>
+					<?php if ( $pair && $pair['discounted'] !== '' ) : ?>
+						<div class="mm-price-sale">
+							<p class="mm-price"><span class="mm-price-current"><?php echo $pair['discounted']; // phpcs:ignore ?></span><span class="mm-price-suffix"> / year</span></p>
+							<p class="mm-price-meta">
+								<s class="mm-price-old"><?php echo $pair['actual']; // phpcs:ignore ?></s>
+								<?php if ( $pair['save'] ) : ?><span class="mm-price-save">Save <?php echo (int) $pair['save']; ?>%</span><?php endif; ?>
+							</p>
+						</div>
+					<?php else : ?>
+						<p class="mm-price"><span class="mm-price-current">$<?php echo (int) $plan['price']; ?></span><span class="mm-price-suffix"> / year</span></p>
+					<?php endif; ?>
 					<ul class="mm-checklist">
 						<?php foreach ( array_filter( array_map( 'trim', explode( "\n", (string) $plan['features'] ) ) ) as $f ) : ?>
 							<li><?php echo esc_html( $f ); ?></li>
 						<?php endforeach; ?>
 					</ul>
-					<a class="mm-btn <?php echo $plan['popular'] ? '' : 'mm-btn-outline'; ?> mm-btn-block" <?php echo $plan['popular'] ? 'style="background:var(--mm-accent);color:#fff"' : ''; ?> href="<?php echo esc_url( $p['buy_url'] ); ?>" <?php echo str_contains( $p['buy_url'], 'add-to-cart' ) ? '' : 'target="_blank" rel="noreferrer"'; ?> data-testid="pricing-buy-<?php echo esc_attr( $p['key'] ); ?>-<?php echo (int) $i; ?>"><?php echo esc_html( $p['buy_l'] ); ?></a>
+					<a class="mm-btn <?php echo $plan['popular'] ? '' : 'mm-btn-outline'; ?> mm-btn-block" <?php echo $plan['popular'] ? 'style="background:var(--mm-accent);color:#fff"' : ''; ?> <?php echo mm_buy_attrs( $p ); // phpcs:ignore ?> data-testid="pricing-buy-<?php echo esc_attr( $p['key'] ); ?>-<?php echo (int) $i; ?>"><?php echo esc_html( $p['buy_l'] ); ?></a>
 					<button class="mm-plan-demo" type="button" data-mm-checkout data-mm-product="<?php echo esc_attr( $p['key'] ); ?>" data-testid="pricing-demo-<?php echo esc_attr( $p['key'] ); ?>-<?php echo (int) $i; ?>">Try demo checkout</button>
 				</div>
 			<?php endforeach; ?>

@@ -165,13 +165,20 @@ body {
 .mm-plan { display: flex; flex-direction: column; }
 .mm-plan-popular { border-width: 2px; box-shadow: 0 24px 60px rgba(0,0,0,0.08); }
 .mm-plan-flag { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); border-radius: 999px; padding: 4px 14px; font-size: 0.72rem; font-weight: 600; color: #fff; white-space: nowrap; }
-.mm-price { font-family: var(--mm-head); font-size: 2.4rem; font-weight: 600; letter-spacing: -0.02em; margin: 20px 0 0; }
-.mm-price span { font-family: var(--mm-body); font-size: 0.9rem; font-weight: 400; color: var(--mm-muted); }
+.mm-price { font-family: var(--mm-head); font-size: 2.4rem; font-weight: 600; letter-spacing: -0.02em; margin: 20px 0 0; display: flex; align-items: baseline; gap: 6px; }
+.mm-price-current { font-size: inherit; }
+.mm-price-suffix { font-family: var(--mm-body); font-size: 0.9rem; font-weight: 400; color: var(--mm-muted); }
+.mm-price-sale { margin: 20px 0 0; }
+.mm-price-sale .mm-price { margin: 0; }
+.mm-price-meta { display: flex; align-items: center; gap: 10px; margin: 6px 0 0; }
+.mm-price-old { font-size: 0.9rem; font-weight: 400; color: var(--mm-muted); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+.mm-price-save { display: inline-flex; align-items: center; font-size: 0.78rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--mm-accent); color: #fff; letter-spacing: 0.01em; white-space: nowrap; }
 .mm-checklist { list-style: none; margin: 24px 0 32px; padding: 0; flex: 1; }
 .mm-checklist li { position: relative; padding-left: 26px; font-size: 0.9rem; margin-bottom: 10px; }
 .mm-checklist li::before { content: ""; position: absolute; left: 0; top: 4px; width: 14px; height: 8px; border-left: 2px solid var(--mm-accent); border-bottom: 2px solid var(--mm-accent); transform: rotate(-45deg); }
 .mm-plan-demo { background: none; border: 0; color: var(--mm-muted); font-size: 0.88rem; font-weight: 600; cursor: pointer; padding: 10px; margin-top: 8px; }
 .mm-plan-demo:hover { color: var(--mm-ink); }
+.mm-view-cart { margin-top: 10px; }
 
 /* FAQ */
 .mm-faq { margin-top: 48px; background: var(--mm-bg); border: 1px solid var(--mm-line); border-radius: 18px; overflow: hidden; }

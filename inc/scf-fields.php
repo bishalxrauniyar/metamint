@@ -19,7 +19,7 @@ add_action( 'acf/include_fields', function () {
 	acf_add_local_field_group( [
 		'key'      => 'group_mm_product',
 		'title'    => 'Product Page',
-		'location' => [ [ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/product.php' ] ] ],
+		'location' => [ [ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'product' ] ] ],
 		'fields'   => [
 			[ 'key' => 'field_mm_product_key', 'label' => 'Product', 'name' => 'product_key', 'type' => 'select', 'choices' => [ 'helpdesk' => 'Metamint Helpdesk', 'seo' => 'Metamint SEO' ], 'required' => 1 ],
 			[ 'key' => 'field_mm_hero_badge', 'label' => 'Hero Badge', 'name' => 'hero_badge', 'type' => 'text' ],
