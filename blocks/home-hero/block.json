@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/home-hero",
+	"version": "1.0.0",
+	"title": "Home: Hero",
+	"category": "design",
+	"icon": "cover-image",
+	"description": "Homepage hero with badge, headline and call-to-action buttons.",
+	"keywords": [ "hero", "home", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

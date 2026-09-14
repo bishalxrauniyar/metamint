@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/product-faq",
+	"version": "1.0.0",
+	"title": "Product: FAQ",
+	"category": "design",
+	"icon": "editor-help",
+	"description": "Accordion FAQ section.",
+	"keywords": [ "product", "faq", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

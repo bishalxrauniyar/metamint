@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/home-teamnote",
+	"version": "1.0.0",
+	"title": "Home: Team Note + Stats",
+	"category": "design",
+	"icon": "groups",
+	"description": "A note from the team with key stats.",
+	"keywords": [ "team", "stats", "home", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

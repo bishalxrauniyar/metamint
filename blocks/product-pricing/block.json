@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/product-pricing",
+	"version": "1.0.0",
+	"title": "Product: Pricing",
+	"category": "design",
+	"icon": "money-alt",
+	"description": "Pricing plan cards.",
+	"keywords": [ "product", "pricing", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

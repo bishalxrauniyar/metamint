@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/home-testimonials",
+	"version": "1.0.0",
+	"title": "Home: Testimonials",
+	"category": "design",
+	"icon": "format-status",
+	"description": "Customer testimonial cards.",
+	"keywords": [ "testimonials", "home", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

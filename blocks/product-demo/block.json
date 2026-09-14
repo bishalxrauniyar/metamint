@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/product-demo",
+	"version": "1.0.0",
+	"title": "Product: Live Demo",
+	"category": "design",
+	"icon": "desktop",
+	"description": "Interactive product demo widget.",
+	"keywords": [ "product", "demo", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/home-cta",
+	"version": "1.0.0",
+	"title": "Home: CTA",
+	"category": "design",
+	"icon": "megaphone",
+	"description": "Final call-to-action band.",
+	"keywords": [ "cta", "home", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/journal-archive",
+	"version": "1.0.0",
+	"title": "Journal Archive (full)",
+	"category": "design",
+	"icon": "rss",
+	"description": "Changelog / journal archive with product filter.",
+	"keywords": [ "journal", "archive", "changelog", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

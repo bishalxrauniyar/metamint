@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/home-features",
+	"version": "1.0.0",
+	"title": "Home: Features",
+	"category": "design",
+	"icon": "star-half",
+	"description": "Feature grid explaining why Metamint.",
+	"keywords": [ "features", "home", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

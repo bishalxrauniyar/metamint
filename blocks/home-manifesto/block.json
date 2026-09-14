@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/home-manifesto",
+	"version": "1.0.0",
+	"title": "Home: Manifesto",
+	"category": "design",
+	"icon": "format-quote",
+	"description": "The four rules Metamint ships by.",
+	"keywords": [ "manifesto", "home", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

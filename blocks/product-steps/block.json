@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/product-steps",
+	"version": "1.0.0",
+	"title": "Product: How It Works",
+	"category": "design",
+	"icon": "moves",
+	"description": "Three-step how-it-works cards.",
+	"keywords": [ "product", "steps", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

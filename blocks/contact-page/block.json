@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/contact-page",
+	"version": "1.0.0",
+	"title": "Contact Page (full)",
+	"category": "design",
+	"icon": "email-alt",
+	"description": "Full contact page: form, direct lines and house rules.",
+	"keywords": [ "contact", "page", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

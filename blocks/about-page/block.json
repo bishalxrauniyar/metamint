@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/about-page",
+	"version": "1.0.0",
+	"title": "About Page (full)",
+	"category": "design",
+	"icon": "admin-users",
+	"description": "Full about page: hero, timeline, manifesto and CTA.",
+	"keywords": [ "about", "page", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "metamint/product-features",
+	"version": "1.0.0",
+	"title": "Product: Feature Matrix",
+	"category": "design",
+	"icon": "star-half",
+	"description": "Product feature matrix grid.",
+	"keywords": [ "product", "features", "metamint" ],
+	"textdomain": "metamint",
+	"supports": {
+		"html": false
+	}
+}
