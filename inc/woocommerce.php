@@ -2,9 +2,10 @@
 /**
  * WooCommerce wiring: buy buttons go straight to checkout once products exist.
  *
- * Create two Simple Products with SKUs "metamint-helpdesk" and "metamint-seo" (or matching
- * slugs) and every buy button on the site switches from the placeholder marketplace URL to
- * checkout?add-to-cart=<id>. An SCF "Marketplace URL" value always wins.
+ * Create two Simple Products with SKUs "metamint-helpdesk" / "metamint-seo" (or matching
+ * "%s slug metamint-<key>-addon") and every buy button on the site switches from the
+ * placeholder marketplace URL to cart?add-to-cart=<id>. An SCF "Marketplace URL" value always
+ * wins.
  *
  * @package metamint
  */
@@ -21,7 +22,7 @@ function mm_wc_product_id( string $key ): int {
 	if ( $pid ) {
 		return $pid;
 	}
-	$post = get_page_by_path( 'metamint-' . $key, OBJECT, 'product' );
+	$post = get_page_by_path( 'metamint-' . $key . '-addon', OBJECT, 'product' );
 	return $post ? (int) $post->ID : 0;
 }
 
