@@ -76,12 +76,12 @@ function mm_block_home_products(): string {
 		[
 			'name' => 'Metamint Helpdesk', 'tag' => 'WordPress Plugin', 'accent' => '#0F7173', 'tid' => 'helpdesk',
 			'desc' => 'Support, live chat and an AI agent that resolves tickets while you sleep. Built natively for WordPress.',
-			'url'  => home_url( '/products/metamint-helpdesk/' ),
+			'url'  => home_url( '/metamint-helpdesk/' ),
 		],
 		[
 			'name' => 'Metamint SEO', 'tag' => 'Shopify App', 'accent' => '#F05D5E', 'tid' => 'seo',
 			'desc' => 'A full SEO power-suite for Shopify: audits, meta magic, schema and rank tracking in one clean dashboard.',
-			'url'  => home_url( '/products/metamint-seo/' ),
+			'url'  => home_url( '/metamint-seo/' ),
 		],
 	];
 	ob_start();
